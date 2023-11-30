@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gra Świąteczna</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #d2f0fc;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #game-container {
+            position: relative;
+            margin-top: 50px;
+            overflow: hidden;
+            height: 400px; /* Ustal wysokość planszy */
+        }
+
+        .present {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            cursor: pointer;
+            animation: fall linear infinite; /* Dodaj animację */
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px);
+            }
+            100% {
+                transform: translateY(500px); /* Ustaw końcową pozycję */
+            }
+        }
+
+        #score {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        #timer {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Świąteczna Gra</h1>
+    <p>Klikaj na prezenty, aby zdobyć punkty!</p>
+
+    <div id="game-container"></div>
+    <p id="score">Wynik: <span id="score-value">0</span></p>
+    <p id="timer">Czas: <span id="timer-value">0</span> sek.</p>
+
+    <script>
+        let score = 0;
+        let presentCount = 0;
+        let gameRunning = true;
+        let startTime;
+
+        function presentClicked() {
+            if (!gameRunning) return;
+
+            if (score === 0) {
+                startTime = new Date().getTime();
+                setInterval(updateTimer, 1000);
+            }
+
+            score += 1;
+            document.getElementById('score-value').innerText = score;
+
+            const present = document.getElementById('present');
+            present.parentNode.removeChild(present);
+            presentCount--;
+
+            if (score >= 10) {
+                endGame();
+            } else {
+                generatePresent();
+            }
+        }
+
+        function generatePresent() {
+            if (presentCount < 10) {
+                const container = document.getElementById('game-container');
+                const present = document.createElement('img');
+                present.src = 'gift.png';
+                present.className = 'present';
+                present.style.left = Math.random() * (container.clientWidth - 50) + 'px';
+                present.style.top = Math.random() * (container.clientHeight - 50) + 'px';
+                present.addEventListener('click', presentClicked);
+                present.setAttribute('id', 'present');
+                container.appendChild(present);
+                presentCount++;
+            }
+        }
+
+        function updateTimer() {
+            if (gameRunning) {
+                const currentTime = new Date().getTime();
+                const elapsedTime = Math.floor((currentTime - startTime) / 1000);
+                document.getElementById('timer-value').innerText = elapsedTime;
+            }
+        }
+
+        function endGame() {
+            gameRunning = false;
+            const result = document.createElement('p');
+            result.id = 'result';
+            const elapsedTime = Math.floor((new Date().getTime() - startTime) / 1000);
+            result.innerText = `Koniec gry! Twój wynik to ${score}. Czas: ${elapsedTime} sek. Gratulacje!`;
+            document.body.appendChild(result);
+        }
+
+        generatePresent();
+        setInterval(generatePresent, 2000);
+    </script>
+
+<body>
+
+    <!-- Przycisk "Wróć do strony głównej" -->
+    <a href="main.html" style="position: fixed; top: 10px; left: 10px; padding: 10px; background-color: #ffc400; color: #fff; text-decoration: none; border-radius: 5px;">Wróć do strony głównej</a>
+
+    <!-- Tutaj umieść resztę treści strony -->
+
+</body>
+
+</body>
+</html>

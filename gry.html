@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose a Christmas Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('gryback.jpg') center/cover no-repeat;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #ffffff;
+        }
+
+        h2 {
+            color: #dc3545;
+        }
+
+        .translations {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .translation,
+        .game-rules,
+        form {
+            width: 80%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #aaaaaa;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .translation:hover,
+        .game-rules:hover,
+        form:hover {
+            transform: scale(1.05);
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #dc3545;
+            color: #ffffff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+
+        a {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+            background-color: #ffc400;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        a:hover {
+            background-color: #ffa500;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript" src="snow.js"></script>
+        
+        <form id="gameForm" method="get" action="gra3.html">
+        
+            <label for="gry">Wybierz grę:</label>
+        <select id="gry" name="gry" onchange="updateAction()">
+            <option value="gra3">Świąteczny pojedynek!</option>
+            <option value="gra2">Zabierz swój prezent!</option>
+        </select>
+
+        <br>
+
+        <input type="submit" value="Rozpocznij grę">
+    </form>
+
+    <script>
+        function updateAction() {
+            var selectedGame = document.getElementById("gry").value;
+            var form = document.getElementById("gameForm");
+    
+            if (selectedGame === "gra3") {
+                form.action = "gra3.html";
+            } else if (selectedGame === "gra2") {
+                form.action = "gra2.html";
+            }
+        }
+    </script>
+
+
+    <!-- Back to the main page button -->
+    <a href="main.html">Back to the main page</a>
+</body>
+</html>
